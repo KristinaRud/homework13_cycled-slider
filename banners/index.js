@@ -5,11 +5,11 @@ const playBtn = document.querySelector(".play");
 const stopBtn = document.querySelector(".stop");
 
 let showImg;
-let j = 0;
+let nextIndex = 0;
 
-function show_img() {
+const show_img = () => {
   for (let i = 0; i < allImg.length; i++) {
-    if (i === j) {
+    if (i === nextIndex) {
       allImg[i].classList.add("show");
       allImg[i].classList.remove("hidden");
     } else {
@@ -18,24 +18,25 @@ function show_img() {
     }
   }
 
-  ++j;
+  ++nextIndex;
 
-  if (j >= allImg.length) {
-    j = 0;
+  if (nextIndex >= allImg.length) {
+    nextIndex = 0;
   }
 }
 
 stopBtn.addEventListener("click", () => {
   clearInterval(showImg);
 
-  stopBtn.setAttribute("disabled", "");
-  playBtn.removeAttribute("disabled");
+  stopBtn.disabled = true;
+  playBtn.disabled = false;
 });
 
 playBtn.addEventListener("click", () => {
   showImg = setInterval(show_img, 3000);
 
-  playBtn.setAttribute("disabled", "");
-  stopBtn.removeAttribute("disabled");
+  playBtn.disabled = true;
+  stopBtn.disabled = false;
 });
 
+playBtn.click();
